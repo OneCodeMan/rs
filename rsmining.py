@@ -3,7 +3,8 @@ import pyautogui
 import time
 
 # has limitations
-def clear_inventory(first_ore):
+def clear_inventory(inventory_icon, first_ore):
+  pyautogui.click(x=inventory_icon[0], y=inventory_icon[1])
   ore_dx = 42 # change in x in inventory
   ore_dy = 34 # change in y in inventory 
   drop_factor = 36
@@ -23,24 +24,34 @@ def clear_inventory(first_ore):
       y_pos_inv += ore_dy
     x_pos_inv += ore_dx
 
+def one_ore(time_limit, ore_location):
+  while time.time() < time_limit:
+    pyautogui.click(x=ore_location[0], y=ore_location[1], clicks=1, interval=15, button='left')
+
+def three_ores(time_limit, ores):
+  while time.time() < time_limit:
+    pyautogui.click(x=ores[0][0], y=ores[0][1], clicks=1, interval=3, button='left')
+    time.sleep(3)
+    pyautogui.click(x=ores[1][0], y=ores[1][1], clicks=1, interval=7, button='left')
+    pyautogui.click(x=ores[2][0], y=ores[2][1], clicks=1, interval=11, button='left')
+
 # VARIABLES THAT CHANGE
-ore_location = (824, 248) # this is the coordinate of the ore i'm clicking on
-first_ore = (1216, 303) # this is the coordinate of first ore in inventory
-minutes_mining = 3 # this might change often
+ore_location = (918, 366) # this is the coordinate of the ore i'm clicking on
+ores = ((899, 222), (898, 331), (1064, 346))
+first_ore_in_inv = (1254, 301) # this is the coordinate of first ore in inventory
+inventory_icon = (1318, 259)
+minutes_mining = 8 # this might change often
 
 # CONSTANTS
 RUNNING = True
 DURATION_MINING = time.time() + 60 * minutes_mining # just more readable
 
-# would use while RUNNING but it's weird
+#while RUNNING:
 
-
-while RUNNING:
-
-  while time.time() < DURATION_MINING:
-    pyautogui.click(x=ore_location[0], y=ore_location[1], clicks=1, interval=4, button='left')
+  #one_ore(DURATION_MINING, ore_location)
   
-  clear_inventory(first_ore)
-  DURATION_MINING = time.time() + 60 * minutes_mining # just more readable
-  time.sleep(3)
+  #clear_inventory(inventory_icon, first_ore_in_inv)
+  #DURATION_MINING = time.time() + 60 * minutes_mining # just more readable
+  #time.sleep(3)
 
+clear_inventory(inventory_icon, first_ore_in_inv)
