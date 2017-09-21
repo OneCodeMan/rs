@@ -37,9 +37,11 @@ def three_ores(time_limit, ores):
 
 def two_ores(time_limit, ore1, ore2):
     while time.time() < time_limit:
+        pyautogui.moveTo(x=ore1[0], y=ore1[1])
         pyautogui.click(x=ore1[0], y=ore1[1], clicks=1, interval=3, button='left')
-        time.sleep(2)
-        pyautogui.click(x=ore2[0], y=ore2[1], clicks=1, interval=7, button='left')
+        #time.sleep(0.5)
+        pyautogui.moveTo(x=ore2[0], y=ore2[1])
+        pyautogui.click(x=ore2[0], y=ore2[1], clicks=1, interval=6, button='left')
 
 def last_two(pos):
     ore_dx = 42
@@ -70,7 +72,7 @@ ore_location = (829, 196) # this is the coordinate of the ore i'm clicking on
 ores = ((871, 183), (990, 223))
 first_ore_in_inv = (1254, 303) # this is the coordinate of first ore in inventory
 inventory_icon = (1318, 259)
-minutes_mining = 4 # this might change often
+minutes_mining = 2 # this might change often
 last_two_pos = (1295, 520)
 
 # CONSTANTS
@@ -85,7 +87,7 @@ while RUNNING:
   clear_inventory(inventory_icon, first_ore_in_inv)
   last_two(last_two_pos)
   DURATION_MINING = time.time() + 60 * minutes_mining # just more readable
-  time.sleep(2)
+  time.sleep(0.5)
 
 
 
